@@ -1,0 +1,133 @@
+Tem duas estrelas que aparecem duplicadas depois da busca: GJ867 e GJ1054
+
+#GJ
+for i in range(len(data)):
+	if SN[i] in SN_GJ:
+		for j in range(len(GJ)):
+			if SN[i] == SN_GJ[j]:
+				if SN[i][0]=='G' and SN[i][1]=='J':
+					GJ_final.append(SN[i])
+				if GJ_GJ[j][0]=='G' and GJ_GJ[j][1]=='J':
+					if SN[i] not in GJ_final:
+						GJ_final.append(GJ_GJ[j])
+				else:
+					GJ_final.append('-')	
+
+#Gaia
+for i in range(len(data)):
+	if SN[i] in SN_Gaia:
+		for j in range(len(Gaia)):
+			if SN[i] == SN_Gaia[j]:
+				if Gaia_Gaia[j][0]=='G' and Gaia_Gaia[j][1]=='a':
+					Gaia_final.append(Gaia_Gaia[j])
+				else:
+					Gaia_final.append('-')	
+
+#HD				
+for i in range(len(data)):
+	if SN[i] in SN_HD:
+		for j in range(len(HD)):
+			if SN[i] == SN_HD[j]:
+				if HD_HD[j][0]=='H' and HD_HD[j][1]=='D':
+					HD_final.append(HD_HD[j])
+				else:
+					HD_final.append('-')	
+
+#2MASS
+for i in range(len(data)):
+	if SN[i] in SN_list_2MASS:
+		for j in range(len(list_2MASS)):
+			if SN[i] == SN_list_2MASS[j]:
+				if list_2MASS_list_2MASS[j][0]=='2' and list_2MASS_list_2MASS[j][1]=='M':
+					list_2MASS_final.append(list_2MASS_list_2MASS[j])
+				else:
+					list_2MASS_final.append('-')	
+
+#NLTT
+for i in range(len(data)):
+	if SN[i] in SN_NLTT:
+		for j in range(len(NLTT)):
+			if SN[i] == SN_NLTT[j]:
+				if NLTT_NLTT[j][0]=='N' and NLTT_NLTT[j][1]=='L':
+					NLTT_final.append(NLTT_NLTT[j])
+				else:
+					NLTT_final.append('-')	
+					
+#LTT
+for i in range(len(data)):
+	if SN[i] in SN_LTT:
+		for j in range(len(LTT)):
+			if SN[i] == SN_LTT[j]:
+				if LTT_LTT[j][0]=='L' and LTT_LTT[j][1]=='T':
+					LTT_final.append(LTT_LTT[j])
+				else:
+					LTT_final.append('-')										
+		
+#L
+numbers=['0','1','2','3','4','5','6','7','8','9']
+for i in range(len(data)):
+	if SN[i] in SN_L:
+		for j in range(len(L)):
+			if SN[i] == SN_L[j]:
+				if L_L[j][0]=='L' and (L_L[j][1] in numbers):
+					L_final.append(L_L[j])
+				else:
+					L_final.append('-')	
+
+#LP
+for i in range(len(data)):
+	if SN[i] in SN_LP:
+		for j in range(len(LP)):
+			if SN[i] == SN_LP[j]:
+				if LP_LP[j][0]=='L' and LP_LP[j][1]=='P':
+					LP_final.append(LP_LP[j])
+				else:
+					LP_final.append('-')
+
+#LHS
+for i in range(len(data)):
+	if SN[i] in SN_LHS:
+		for j in range(len(LHS)):
+			if SN[i] == SN_LHS[j]:
+				if LHS_LHS[j][0]=='L' and LHS_LHS[j][1]=='H':
+					LHS_final.append(LHS_LHS[j])
+				else:
+					LHS_final.append('-')										
+
+#GL
+GL=[]
+for i in range(len(data)):
+	a=GJ[i]
+	if GJ[i][0] == 'G':
+		GL.append('GL'+a[2:])
+	else:
+		GL.append('-')	
+
+#ST
+with open("/home/ellen/Documentos/python_ic/winters/ST.csv") as f:
+	ST = f.read()
+	
+ST = ST.split('\n')
+ST.pop()
+
+ST_SN = [row.split(';')[0] for row in ST]
+ST_ST = [row.split(';')[1] for row in ST]
+
+ST_final = []
+for i in range(len(data)):
+	for j in range(len(ST)):
+		if SN[i] == ST_SN[j]:
+				ST_final.append(ST_ST[j])
+					
+
+new_data=[]
+
+for i in range(len(data)):
+	new_data.append(data[i]+';'+ST_final[i])
+
+print new_data,len(new_data)
+
+f=open('winters15_TUDAO.txt','w')
+for ele in new_data:
+    f.write(ele+'\n')
+f.close()		
